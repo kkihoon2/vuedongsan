@@ -1,17 +1,9 @@
 <template>
 
 
-  <div class="black-bg" v-if="modalOpened === true">
-<!--    (v-else , v-else-if도 존재함)-->
-    <div class="white-bg">
-      <h4>{{ onerooms[modalNum].title }}</h4>
-      <p>상세페이지내용</p>
-      <p>{{ onerooms[modalNum].price }}</p>
-      <button @click="modalOpened=false">닫어</button>
-    </div>
-  </div>
+  <ModalBanner @modal="modalOpened=false" :onerooms = onerooms :modalOpened = modalOpened :modalNum = modalNum></ModalBanner>
 
-
+  <DiscountBanner></DiscountBanner>
 
   <input v-model="message">
   <p>{{ message }}</p>
@@ -40,12 +32,17 @@
 
 
 import datas from './data/post';
-
+import DiscountBanner from './DiscountBanner.vue'
+import ModalBanner from "@/ModalBanner.vue";
 
 
 export default {
   name: 'App',
-  components: {},
+  components: {
+    DiscountBanner,//이렇게도 가능
+    // Discount : DiscountBanner//이렇게도 가능
+    ModalBanner
+  },
   data() {
     return {
       onerooms: datas,
@@ -55,7 +52,7 @@ export default {
       message: "hello",
       users: {},
       modalNum : 0
-    }
+     }
   },
   methods: {
     increase() {
